@@ -5,5 +5,11 @@
 #' @export
 visualize_party_distribution <- function(data) {
   # Your visualization logic here
-  ggplot(data, aes(x = party)) + geom_bar()
+  data_plot <- aggregate(data, turnout ~ party, FUN = "sum")
+  ggplot(data_plot, aes(x = party, y = turnout, fill = party)) +
+    geom_col() +
+    theme_bw() +
+    scale_fill_manual(values = c("blue", "gray", "red")) +
+    theme(legend.position = "none") +
+    labs(x = "", y = "Turnout count")
 }
